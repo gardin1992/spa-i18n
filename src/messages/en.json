@@ -1,0 +1,47 @@
+{
+  "IndexPage": {
+    "title": "House",
+    "description": "Internationalization home page."
+  },
+  "AccountPage": {
+    "title": "Account",
+    "description": "Basic user information",
+    "credentials": "Credentials",
+    "credentialsEmail": "Email",
+    "credentialsName": "Name",
+    "credentialsUsername": "Nickname"
+  },
+  "LoginPage": {
+    "title": "Login",
+    "description": ""
+  },
+  "Error": {
+    "title": "Something went wrong!",
+    "description": "<p>We're sorry, we ran into an error.</p><p>You can try <retry>reloading the page</retry> you were visiting.</p>"
+  },
+  "PageNotFound": {
+    "title": "Page not found",
+    "description": "Please check your browser's address bar or use navigation to go to a popular page."
+  },
+  "LocaleLayout": {
+    "title": "Next Internationalization"
+  },
+  "Navigation": {
+    "home": "Home",
+    "account": "account"
+  },
+  "PageLayout": {
+    "links": {
+      "docs": {
+        "title": "Upcoming",
+        "description": "Nextjs Official Site.",
+        "href": "https://nextjs.org/"
+      },
+      "source": {
+        "title": "Next-intl internationalization",
+        "description": "Next-intl internationalization starting.",
+        "href": "https://next-intl-docs.vercel.app/docs/getting-started"
+      }
+    }
+  }
+}
