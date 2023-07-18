@@ -3,10 +3,18 @@
 import clsx from "clsx";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
-import { createTranslator, NextIntlClientProvider } from "next-intl";
+import {
+  createTranslator,
+  IntlErrorCode,
+  NextIntlClientProvider,
+} from "next-intl";
 import { ReactNode } from "react";
 import ContextProvider from "@/lib/contexts";
 import Navbar from "@/components/Navbar";
+import { useWebVitals } from "@/lib/hooks";
+import StyledComponentsRegistry from "@/registry";
+import { Container, CssBaseline, ThemeProvider } from "@mui/material";
+import theme from "@/components/CustomTheme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,19 +45,54 @@ export async function generateMetadata({ params: { locale } }: Props) {
   };
 }
 
+function onError(error: any) {
+  if (error.code === IntlErrorCode.MISSING_MESSAGE) {
+    // Missing translations are expected and should only log an error
+    // console.error(error);
+  } else {
+    // console.error("error", error);
+    // Other errors indicate a bug in the app and should be reported
+    // reportToErrorTracking(error);
+  }
+}
+
+function getMessageFallback({ namespace, key, error }: any) {
+  const path = [namespace, key].filter((part) => part != null).join(".");
+
+  if (error.code === IntlErrorCode.MISSING_MESSAGE) {
+    return key;
+  } else {
+    return `Dear developer, please fix this message: ${path}`;
+  }
+}
+
 export default async function LocaleLayout({
   children,
   params: { locale },
 }: Props) {
+  useWebVitals();
+
   const messages = await getMessages(locale);
 
   return (
     <html className="h-full" lang={locale}>
       <body className={clsx(inter.className, "flex h-full flex-col")}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <NextIntlClientProvider
+          locale={locale}
+          messages={messages}
+          onError={onError}
+          getMessageFallback={getMessageFallback}
+        >
           <ContextProvider>
-            <Navbar />
-            {children}
+            <StyledComponentsRegistry>
+              <ThemeProvider theme={theme}>
+                <CssBaseline enableColorScheme />
+                <Navbar />
+                <Container maxWidth="md" component="main">
+                  {children}
+                </Container>
+              </ThemeProvider>
+            </StyledComponentsRegistry>
           </ContextProvider>
         </NextIntlClientProvider>
       </body>

@@ -28,7 +28,8 @@
   },
   "Navigation": {
     "home": "Inicio",
-    "account": "Conta"
+    "account": "Conta",
+    "about": "Sobre"
   },
   "PageLayout": {
     "links": {
