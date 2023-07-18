@@ -1,3 +1,4 @@
+import { CustomIntlMessage } from "@/lib/types/CustomIntlMessage";
+
 // Use type safe message keys with `next-intl`
-type Messages = typeof import("./src/messages/pt-BR.json");
-declare interface IntlMessages extends Messages {}
+declare interface IntlMessages extends CustomIntlMessage {}
